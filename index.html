@@ -1,729 +1,735 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#14231d" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f0d">
+  <meta name="description" content="Прикольный чек-лист для поездки в Рассказань">
   <title>Чек-лист Рассказани</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛺</text></svg>">
   <style>
     :root{
-      --ink:#17201c;
-      --muted:#66716b;
-      --paper:#fffaf0;
-      --paper-2:#f5ecd9;
-      --forest:#173b2d;
-      --forest-2:#0f271e;
-      --sun:#f4b942;
-      --orange:#e97c3d;
-      --mint:#a8d8bd;
-      --blue:#78b6d8;
-      --red:#d95b55;
-      --line:rgba(23,32,28,.14);
-      --shadow:0 18px 50px rgba(21,35,29,.16);
+      --bg:#0b0f0d;
+      --bg-2:#111714;
+      --panel:#171e1a;
+      --panel-2:#1d2621;
+      --paper:#ece5d8;
+      --paper-2:#d8cdbb;
+      --text:#f7f3ea;
+      --muted:#aab3ad;
+      --ink:#141915;
+      --accent:#f2a63b;
+      --accent-2:#e66e3b;
+      --green:#78a98a;
+      --line:rgba(255,255,255,.10);
+      --shadow:0 24px 70px rgba(0,0,0,.36);
+      --radius:26px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      color:var(--ink);
+      min-width:320px;
+      color:var(--text);
       background:
-        radial-gradient(circle at 10% 8%, rgba(244,185,66,.25), transparent 24rem),
-        radial-gradient(circle at 92% 28%, rgba(120,182,216,.20), transparent 25rem),
-        linear-gradient(180deg,#f7f0df 0%,#fffaf0 52%,#eef4eb 100%);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        radial-gradient(circle at 12% 6%,rgba(242,166,59,.12),transparent 28rem),
+        radial-gradient(circle at 86% 24%,rgba(87,135,105,.12),transparent 34rem),
+        linear-gradient(180deg,#090d0b,#101612 46%,#0b100d);
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:16px;
+      line-height:1.5;
       overflow-x:hidden;
     }
 
     button,input{font:inherit}
     button{touch-action:manipulation}
-
-    .page{
-      width:min(1180px, calc(100% - 28px));
-      margin:0 auto;
-      padding:18px 0 72px;
-    }
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 28px));margin:0 auto}
 
     .hero{
+      min-height:760px;
       position:relative;
-      min-height:610px;
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:34px;
+      display:flex;
+      align-items:flex-end;
       overflow:hidden;
-      background:
-        linear-gradient(125deg, rgba(9,30,22,.96) 0%, rgba(18,65,47,.93) 58%, rgba(44,96,69,.88) 100%);
-      box-shadow:var(--shadow);
-      color:white;
+      border-bottom:1px solid var(--line);
+      background-image:
+        linear-gradient(90deg,rgba(5,8,6,.90) 0%,rgba(5,8,6,.66) 43%,rgba(5,8,6,.16) 72%,rgba(5,8,6,.50) 100%),
+        linear-gradient(0deg,rgba(5,8,6,.95) 0%,transparent 46%),
+        url('assets/hero.jpg');
+      background-size:cover;
+      background-position:center;
       isolation:isolate;
     }
-
-    .hero::before{
+    .hero::after{
       content:"";
+      position:absolute;inset:0;z-index:-1;
+      background:
+        linear-gradient(120deg,transparent 0 68%,rgba(242,166,59,.06) 68% 69%,transparent 69%),
+        repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,255,255,.018) 80px);
+    }
+
+    .nav{
       position:absolute;
-      inset:0;
-      opacity:.18;
-      background-image:
-        radial-gradient(circle at 20% 25%, white 0 2px, transparent 3px),
-        radial-gradient(circle at 72% 18%, white 0 2px, transparent 3px),
-        radial-gradient(circle at 84% 66%, white 0 1.5px, transparent 2.5px);
-      background-size:170px 170px,220px 220px,140px 140px;
-      z-index:-1;
+      left:0;right:0;top:0;
+      padding:18px 0;
+      z-index:4;
     }
-
-    .hero-grid{
-      min-height:610px;
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
+    .nav-inner{
+      display:flex;
       align-items:center;
-      gap:28px;
-      padding:48px;
+      justify-content:space-between;
+      gap:18px;
+      padding:12px 14px 12px 18px;
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:20px;
+      background:rgba(10,14,12,.54);
+      backdrop-filter:blur(16px);
+      box-shadow:0 12px 36px rgba(0,0,0,.18);
     }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight:900;letter-spacing:.02em;
+    }
+    .brand-mark{
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      background:var(--accent);color:var(--ink);
+      transform:rotate(-4deg);
+    }
+    .nav-note{color:#d2d7d3;font-size:.92rem}
 
+    .hero-inner{
+      width:100%;
+      padding:150px 0 78px;
+    }
+    .hero-copy{max-width:720px}
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:9px;
       padding:8px 12px;
-      border:1px solid rgba(255,255,255,.22);
+      border:1px solid rgba(255,255,255,.16);
       border-radius:999px;
-      background:rgba(255,255,255,.08);
-      color:#d9f6e4;
-      font-size:.83rem;
+      color:#d6ded9;
+      background:rgba(255,255,255,.055);
+      font-size:.82rem;
       font-weight:800;
-      letter-spacing:.12em;
       text-transform:uppercase;
-      backdrop-filter:blur(10px);
+      letter-spacing:.12em;
     }
-
+    h1,h2,h3,p{margin-top:0}
     h1{
       margin:22px 0 18px;
-      font-size:clamp(3.1rem,7vw,7.2rem);
-      line-height:.86;
+      max-width:800px;
+      font-size:clamp(3.4rem,8vw,7.4rem);
+      line-height:.88;
       letter-spacing:-.075em;
-      max-width:780px;
+      text-wrap:balance;
     }
-
-    .hero-line{
-      margin:0;
+    .lead{
+      max-width:690px;
+      margin-bottom:0;
+      color:#ecebe5;
+      font-size:clamp(1.25rem,2.5vw,2rem);
+      line-height:1.25;
+      font-weight:700;
+      letter-spacing:-.025em;
+    }
+    .hero-sub{
       max-width:650px;
-      color:#f6f1df;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size:clamp(1.25rem,2.4vw,2rem);
-      line-height:1.28;
+      margin:16px 0 0;
+      color:#bac2bd;
+      font-size:1.04rem;
     }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:30px;
-    }
-
+    .actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
     .btn{
       appearance:none;
       border:0;
-      border-radius:999px;
-      padding:14px 19px;
-      font-weight:850;
+      border-radius:15px;
+      padding:13px 17px;
       cursor:pointer;
-      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      font-weight:900;
+      transition:transform .16s ease,filter .16s ease,background .16s ease,border-color .16s ease;
     }
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px) scale(.985)}
+    .btn.primary{background:var(--accent);color:#161b17;box-shadow:0 11px 30px rgba(242,166,59,.20)}
+    .btn.ghost{background:rgba(255,255,255,.06);color:white;border:1px solid rgba(255,255,255,.16)}
+    .btn.soft{background:#272f2b;color:#f0eee8;border:1px solid rgba(255,255,255,.09)}
+    .btn.paper{background:var(--paper);color:var(--ink)}
+    .btn.small{padding:9px 12px;border-radius:12px;font-size:.9rem}
 
-    .btn:hover{transform:translateY(-2px)}
-    .btn:active{transform:translateY(1px) scale(.98)}
-    .btn-primary{
-      background:var(--sun);
-      color:#22271f;
-      box-shadow:0 10px 24px rgba(244,185,66,.28);
+    .hero-facts{
+      display:flex;flex-wrap:wrap;gap:10px;
+      margin-top:30px;
     }
-    .btn-light{
-      background:rgba(255,255,255,.1);
-      color:white;
-      border:1px solid rgba(255,255,255,.2);
-    }
-    .btn-dark{
-      background:var(--forest);
-      color:white;
-    }
-    .btn-soft{
-      background:#efe5ce;
-      color:#263329;
-      border:1px solid #ddceb0;
-    }
-
-    .bag-scene{
-      position:relative;
-      display:grid;
-      place-items:center;
-      min-height:470px;
-    }
-
-    .bag-card{
-      position:relative;
-      width:min(100%,460px);
-      aspect-ratio:1/1;
-      border-radius:50%;
-      background:
-        radial-gradient(circle at 50% 46%, rgba(255,255,255,.17), transparent 56%),
-        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+    .fact{
+      padding:9px 12px;
       border:1px solid rgba(255,255,255,.12);
+      border-radius:13px;
+      color:#dce1dd;
+      background:rgba(5,8,6,.42);
+      backdrop-filter:blur(10px);
+      font-size:.92rem;
+      font-weight:700;
     }
 
-    .bag-svg{width:100%;height:100%;filter:drop-shadow(0 26px 22px rgba(0,0,0,.28))}
-    .sticker{
-      position:absolute;
+    .object-strip{
+      position:relative;
+      z-index:3;
+      margin-top:-32px;
+      padding-bottom:26px;
+    }
+    .object-grid{
       display:grid;
-      place-items:center;
-      width:74px;
-      height:74px;
+      grid-template-columns:1.25fr 1fr 1fr;
+      gap:13px;
+    }
+    .photo-card{
+      position:relative;
+      min-height:240px;
+      overflow:hidden;
       border-radius:22px;
-      background:var(--paper);
-      color:var(--ink);
-      font-size:2rem;
-      box-shadow:0 12px 25px rgba(0,0,0,.22);
-      transform:rotate(var(--rot,0deg));
-      border:4px solid rgba(255,255,255,.9);
+      border:1px solid rgba(255,255,255,.10);
+      background:#17201c center/cover no-repeat;
+      box-shadow:var(--shadow);
     }
-    .s1{left:-8px;top:44px;--rot:-10deg}
-    .s2{right:-4px;top:80px;--rot:9deg}
-    .s3{left:20px;bottom:54px;--rot:8deg}
-    .s4{right:18px;bottom:44px;--rot:-8deg}
+    .photo-card.big{min-height:330px;grid-row:span 2}
+    .photo-card::after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(0deg,rgba(5,8,6,.88),rgba(5,8,6,.04) 65%);
+    }
+    .photo-copy{
+      position:absolute;left:18px;right:18px;bottom:16px;z-index:2;
+    }
+    .photo-copy strong{display:block;font-size:1.08rem}
+    .photo-copy span{color:#c2cac5;font-size:.9rem}
+    .photo-tag{
+      position:absolute;top:14px;left:14px;z-index:2;
+      padding:7px 9px;border-radius:10px;
+      background:rgba(10,14,12,.68);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(8px);
+      font-size:.77rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;
+    }
 
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
+    .sticky{
+      position:sticky;
+      top:10px;
+      z-index:20;
+      margin:18px auto 0;
+    }
+    .toolbar{
+      display:grid;
+      grid-template-columns:1fr auto;
       align-items:center;
-      padding:30px 4px 18px;
+      gap:18px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,.11);
+      border-radius:20px;
+      background:rgba(15,21,17,.88);
+      box-shadow:0 18px 44px rgba(0,0,0,.30);
+      backdrop-filter:blur(18px);
     }
+    .progress-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;font-weight:900}
+    .track{height:10px;border-radius:999px;background:#2a332e;overflow:hidden}
+    .bar{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--accent-2),var(--accent),#92b89e);transition:width .28s ease}
+    .tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
 
-    .progress-wrap{
-      flex:1;
-      padding:18px 20px;
-      border-radius:24px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(23,32,28,.08);
-      box-shadow:0 10px 30px rgba(34,54,42,.08);
-      backdrop-filter:blur(12px);
+    .intro{
+      display:grid;
+      grid-template-columns:1fr .72fr;
+      gap:18px;
+      padding:44px 0 18px;
     }
-    .progress-meta{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:baseline;
-      margin-bottom:10px;
+    .intro-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(145deg,#141b17,#1a231e);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+    .intro-card.paper{
+      color:var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.72)),
+        repeating-linear-gradient(0deg,#e6ddce 0 1px,transparent 1px 28px),
+        var(--paper);
+    }
+    .intro h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1;letter-spacing:-.055em;margin-bottom:12px}
+    .intro p{color:var(--muted);margin-bottom:0}
+    .intro-card.paper p{color:#4c574f}
+    .quote{
+      margin:20px 0 0;
+      padding:15px 17px;
+      border-left:4px solid var(--accent);
+      border-radius:0 14px 14px 0;
+      background:rgba(242,166,59,.08);
       font-weight:800;
     }
-    .progress-track{
-      height:12px;
-      border-radius:999px;
-      background:#e2e7df;
-      overflow:hidden;
-    }
-    .progress-bar{
-      width:0;
-      height:100%;
-      border-radius:inherit;
-      background:linear-gradient(90deg,var(--orange),var(--sun),var(--mint));
-      transition:width .35s ease;
+    .panic{
+      display:grid;gap:10px;margin-top:18px;
     }
 
-    .quick-actions{
+    .filters{
       display:flex;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      gap:10px;
-    }
-
-    .section{
-      margin-top:18px;
-      padding:24px;
-      border-radius:30px;
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(23,32,28,.09);
-      box-shadow:0 14px 38px rgba(38,56,47,.08);
-      backdrop-filter:blur(12px);
-    }
-
-    .section-head{
-      display:grid;
-      grid-template-columns:64px 1fr auto;
       align-items:center;
+      justify-content:space-between;
       gap:14px;
-      margin-bottom:18px;
+      margin:18px 0 8px;
     }
+    .filters h2{margin:0;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.05em}
+    .filter-buttons{display:flex;flex-wrap:wrap;gap:8px}
+    .filter.active{background:var(--paper);color:var(--ink)}
 
-    .section-icon{
-      display:grid;
-      place-items:center;
-      width:64px;
-      height:64px;
-      border-radius:20px;
-      font-size:2rem;
-      background:var(--tone,#f0dfb7);
-      transform:rotate(-2deg);
-      border:1px solid rgba(23,32,28,.08);
+    .sections{display:grid;gap:20px;padding-bottom:18px}
+    .section{
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(145deg,#141b17,#18201c);
+      box-shadow:0 18px 60px rgba(0,0,0,.20);
     }
-
-    .section h2{
-      margin:0;
-      font-size:clamp(1.45rem,3vw,2.15rem);
-      letter-spacing:-.035em;
+    .section-cover{
+      position:relative;
+      min-height:220px;
+      display:flex;
+      align-items:flex-end;
+      padding:24px;
+      background:center/cover no-repeat;
     }
-
-    .section-sub{
-      margin:4px 0 0;
-      color:var(--muted);
+    .section-cover::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(90deg,rgba(6,9,7,.82),rgba(6,9,7,.18)),linear-gradient(0deg,rgba(6,9,7,.86),transparent 70%);
     }
-
-    .items{
+    .section-copy{position:relative;z-index:2;max-width:720px}
+    .section-copy h2{margin:0 0 7px;font-size:clamp(1.8rem,4vw,3.2rem);line-height:1;letter-spacing:-.05em}
+    .section-copy p{margin:0;color:#c5ccc8}
+    .section-action{position:absolute;right:20px;top:20px;z-index:3}
+    .grid{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:11px;
+      gap:10px;
+      padding:14px;
     }
-
-    .check{
+    .item{
       position:relative;
       display:grid;
       grid-template-columns:auto 1fr;
-      gap:12px;
       align-items:flex-start;
-      padding:14px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,250,240,.76);
+      gap:12px;
+      padding:15px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:17px;
+      background:#1a231e;
       cursor:pointer;
-      transition:transform .16s ease, border-color .16s ease, background .16s ease;
+      transition:transform .16s ease,background .16s ease,border-color .16s ease,opacity .16s ease;
     }
-    .check:hover{transform:translateY(-2px);border-color:rgba(23,59,45,.3)}
-    .check input{
+    .item:hover{transform:translateY(-2px);border-color:rgba(242,166,59,.34)}
+    .item input{
       appearance:none;
-      width:24px;
-      height:24px;
-      border-radius:8px;
-      border:2px solid #9ba69f;
-      background:white;
-      margin:1px 0 0;
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
+      width:24px;height:24px;margin:1px 0 0;
+      border:2px solid #69736d;
+      border-radius:7px;
+      background:#101512;
+      display:grid;place-items:center;
+      cursor:pointer;
     }
-    .check input::after{
+    .item input::after{
       content:"✓";
+      color:#151b16;
       font-size:17px;
-      line-height:1;
-      color:white;
+      font-weight:900;
       transform:scale(0);
-      transition:transform .13s ease;
+      transition:transform .12s ease;
     }
-    .check input:checked{
-      background:var(--forest);
-      border-color:var(--forest);
+    .item input:checked{background:var(--accent);border-color:var(--accent)}
+    .item input:checked::after{transform:scale(1)}
+    .item:has(input:checked){
+      background:#18251d;
+      border-color:rgba(120,169,138,.42);
     }
-    .check input:checked::after{transform:scale(1)}
-    .check:has(input:checked){
-      background:#edf6ee;
-      border-color:#9bc4a6;
-    }
-    .check:has(input:checked) .item-title{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#73957b}
+    .item:has(input:checked) .item-title{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:#71917d;color:#b8c3bc}
     .item-num{
       display:inline-flex;
-      margin-right:6px;
-      color:var(--orange);
+      min-width:33px;
+      color:var(--accent);
       font-weight:900;
+      letter-spacing:.04em;
     }
-    .item-title{font-weight:850;line-height:1.3}
-    .item-note{
-      display:block;
-      margin-top:4px;
-      color:var(--muted);
-      font-size:.91rem;
-      line-height:1.4;
-    }
-    .urgent{
-      color:#8d2f2b;
-      font-weight:900;
-    }
+    .item-title{font-weight:900;line-height:1.35}
+    .item-note{display:block;margin-top:5px;color:#9ea8a2;font-size:.92rem;line-height:1.42}
+    .item.urgent .item-note{color:#e2b3a7}
+    .item.hidden{display:none}
 
-    .fun-zone{
-      margin-top:22px;
+    .fun{
       display:grid;
-      grid-template-columns:1.1fr .9fr;
+      grid-template-columns:1.08fr .92fr;
       gap:18px;
+      padding:18px 0 24px;
     }
-
     .fun-card{
-      padding:26px;
-      min-height:260px;
-      border-radius:30px;
+      min-height:320px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      padding:28px;
       overflow:hidden;
       position:relative;
-      border:1px solid rgba(23,32,28,.08);
-      box-shadow:0 14px 38px rgba(38,56,47,.08);
     }
     .fun-card.dark{
-      color:white;
       background:
-        radial-gradient(circle at 90% 10%,rgba(244,185,66,.25),transparent 18rem),
-        linear-gradient(140deg,#142b22,#1d4936);
+        radial-gradient(circle at 90% 10%,rgba(242,166,59,.17),transparent 18rem),
+        linear-gradient(140deg,#111713,#1d2a22);
     }
-    .fun-card.paper{background:#f5e8c9}
-    .fun-card h2{margin:0 0 8px;font-size:clamp(1.6rem,3vw,2.45rem);letter-spacing:-.045em}
-    .fun-card p{margin:0;color:inherit;opacity:.8;line-height:1.5}
-
-    .fun-buttons{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:22px;
+    .fun-card.paper{
+      color:var(--ink);
+      background:
+        linear-gradient(rgba(238,231,216,.94),rgba(238,231,216,.94)),
+        repeating-linear-gradient(0deg,#d8cdbb 0 1px,transparent 1px 29px);
     }
-
-    .phrase-box{
-      min-height:84px;
-      margin-top:18px;
-      padding:16px 18px;
-      border-radius:19px;
-      border:1px dashed rgba(255,255,255,.35);
-      background:rgba(255,255,255,.08);
+    .fun h2{font-size:clamp(2rem,4vw,3rem);line-height:1;letter-spacing:-.05em;margin-bottom:10px}
+    .fun p{color:var(--muted)}
+    .fun-card.paper p{color:#556059}
+    .phrase{
+      min-height:90px;
+      margin-top:20px;
+      padding:17px;
       display:flex;
       align-items:center;
-      font-size:1.05rem;
-      font-weight:800;
-      line-height:1.4;
-    }
-
-    .mini-list{
-      display:grid;
-      gap:10px;
-      margin-top:20px;
-    }
-    .mini{
-      padding:13px 15px;
+      border:1px dashed rgba(255,255,255,.24);
       border-radius:16px;
-      background:rgba(255,255,255,.62);
-      border:1px solid rgba(23,32,28,.09);
-      font-weight:750;
+      background:rgba(255,255,255,.045);
+      font-weight:900;
+      font-size:1.05rem;
+    }
+    .warning-list{display:grid;gap:10px;margin-top:18px}
+    .warning-list div{
+      padding:13px 14px;
+      border:1px solid rgba(20,25,21,.11);
+      border-radius:14px;
+      background:rgba(255,255,255,.58);
+      font-weight:800;
     }
 
-    .footer{
-      margin-top:20px;
-      padding:28px;
+    footer{
+      margin:0 auto 32px;
+      padding:38px 24px;
       text-align:center;
-      border-radius:30px;
-      color:white;
-      background:linear-gradient(130deg,#173b2d,#0e241c);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(90deg,rgba(4,7,5,.90),rgba(4,7,5,.54)),
+        url('assets/gear-sunset.jpg') center/cover;
       box-shadow:var(--shadow);
     }
-    .footer h2{margin:0 0 8px;font-size:clamp(1.8rem,4vw,3rem)}
-    .footer p{margin:0;color:#d7e7df}
-    .footer .btn{margin-top:18px}
+    footer h2{font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:-.055em;margin-bottom:10px}
+    footer p{color:#c4ccc7;margin-bottom:0}
 
     .toast{
       position:fixed;
-      left:50%;
-      bottom:22px;
-      z-index:100;
-      width:min(92vw,620px);
-      padding:16px 20px;
-      border-radius:18px;
-      color:white;
-      background:#13281f;
-      box-shadow:0 20px 60px rgba(0,0,0,.28);
-      transform:translate(-50%,130%);
+      left:50%;bottom:22px;z-index:100;
+      width:min(92vw,650px);
+      padding:16px 18px;
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:16px;
+      color:#151a16;
+      background:#efe8dc;
+      box-shadow:0 20px 60px rgba(0,0,0,.38);
+      transform:translate(-50%,140%);
       opacity:0;
-      transition:transform .3s ease,opacity .3s ease;
-      font-weight:800;
+      transition:transform .26s ease,opacity .26s ease;
       text-align:center;
+      font-weight:900;
     }
     .toast.show{transform:translate(-50%,0);opacity:1}
 
-    .confetti{
-      pointer-events:none;
-      position:fixed;
-      inset:0;
-      z-index:90;
-      overflow:hidden;
-    }
-    .confetti i{
-      position:absolute;
-      top:-20px;
-      width:10px;
-      height:18px;
-      border-radius:3px;
-      animation:fall 2.2s linear forwards;
-    }
-    @keyframes fall{
-      to{transform:translate(var(--drift),110vh) rotate(720deg);opacity:.9}
-    }
+    .confetti{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
+    .confetti i{position:absolute;top:-24px;width:9px;height:18px;border-radius:2px;animation:fall 2.2s linear forwards}
+    @keyframes fall{to{transform:translate(var(--drift),110vh) rotate(700deg);opacity:.95}}
 
-    @media (max-width:860px){
-      .hero-grid{grid-template-columns:1fr;padding:30px 22px 20px}
-      .hero{min-height:auto}
-      .hero-grid{min-height:auto}
-      .bag-scene{min-height:390px;margin-top:-10px}
-      .bag-card{width:min(88vw,420px)}
-      .topbar{display:grid}
-      .quick-actions{justify-content:flex-start}
-      .fun-zone{grid-template-columns:1fr}
+    @media(max-width:900px){
+      .hero{min-height:700px;background-position:58% center}
+      .object-grid{grid-template-columns:1fr 1fr}
+      .photo-card.big{grid-column:1/-1;grid-row:auto}
+      .toolbar{grid-template-columns:1fr}
+      .tools{justify-content:flex-start}
+      .intro,.fun{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
     }
-
-    @media (max-width:650px){
-      .page{width:min(100% - 18px,1180px);padding-top:9px}
-      .hero{border-radius:25px}
-      .hero-grid{padding:26px 18px 12px}
-      h1{font-size:clamp(3.1rem,17vw,5.2rem)}
-      .hero-actions .btn{width:100%}
-      .bag-scene{min-height:330px}
-      .sticker{width:58px;height:58px;border-radius:17px;font-size:1.55rem}
-      .s1{left:0}.s2{right:0}.s3{left:8px}.s4{right:8px}
-      .section{padding:17px;border-radius:24px}
-      .section-head{grid-template-columns:52px 1fr}
-      .section-head .btn{grid-column:1/-1;width:100%}
-      .section-icon{width:52px;height:52px;border-radius:16px;font-size:1.6rem}
-      .items{grid-template-columns:1fr}
-      .quick-actions .btn{flex:1 1 calc(50% - 10px)}
-      .fun-card{padding:20px}
+    @media(max-width:650px){
+      .wrap{width:min(100% - 18px,1180px)}
+      .nav-note{display:none}
+      .hero{min-height:720px;background-position:60% center}
+      .hero-inner{padding:135px 0 52px}
+      h1{font-size:clamp(3.25rem,16vw,5.8rem)}
+      .actions .btn{flex:1 1 100%}
+      .object-grid{grid-template-columns:1fr}
+      .photo-card,.photo-card.big{min-height:250px}
+      .sticky{top:5px}
+      .tools .btn{flex:1 1 calc(50% - 8px)}
+      .filters{display:grid}
+      .section-cover{min-height:260px;padding:20px}
+      .section-action{right:14px;top:14px}
+      .section-copy{padding-top:42px}
+      .grid{padding:10px}
+      .intro-card,.fun-card{padding:20px}
     }
-
-    @media (prefers-reduced-motion:reduce){
+    @media(prefers-reduced-motion:reduce){
       *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="hero">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">⛺ Рассказань • чек-лист</div>
-          <h1>Ты точно всё взял?</h1>
-          <p class="hero-line">Собраться в Рассказань — это почти отдельный вид искусства.</p>
-          <div class="hero-actions">
-            <button class="btn btn-primary" id="startBtn" type="button">Начать собираться</button>
-            <button class="btn btn-light phrase-trigger" data-kind="ready" type="button">Я уже почти готов</button>
-          </div>
-        </div>
-
-        <div class="bag-scene" aria-label="Весёлая иллюстрация переполненного рюкзака">
-          <div class="bag-card">
-            <span class="sticker s1">📖</span>
-            <span class="sticker s2">🔦</span>
-            <span class="sticker s3">🧦</span>
-            <span class="sticker s4">☕</span>
-            <svg class="bag-svg" viewBox="0 0 500 500" role="img" aria-label="Рюкзак, из которого торчат вещи">
-              <defs>
-                <linearGradient id="gBag" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#e97c3d"/>
-                  <stop offset="1" stop-color="#c34d32"/>
-                </linearGradient>
-              </defs>
-              <path d="M188 132c8-57 116-57 124 0" fill="none" stroke="#f3d7ae" stroke-width="18" stroke-linecap="round"/>
-              <path d="M160 145c-39 38-53 112-45 199 7 74 52 111 135 111s128-37 135-111c8-87-6-161-45-199-49-42-131-42-180 0Z" fill="url(#gBag)" stroke="#7d2f25" stroke-width="8"/>
-              <path d="M139 253c-35 14-54 51-44 89 7 28 29 47 58 52" fill="none" stroke="#7d2f25" stroke-width="26" stroke-linecap="round"/>
-              <path d="M361 253c35 14 54 51 44 89-7 28-29 47-58 52" fill="none" stroke="#7d2f25" stroke-width="26" stroke-linecap="round"/>
-              <rect x="162" y="288" width="176" height="105" rx="36" fill="#f3a65f" stroke="#7d2f25" stroke-width="7"/>
-              <path d="M174 292h152" stroke="#7d2f25" stroke-width="7" stroke-linecap="round"/>
-              <path d="M183 220h134" stroke="#f6c58d" stroke-width="12" stroke-linecap="round" opacity=".65"/>
-              <path d="M222 394v37M278 394v37" stroke="#7d2f25" stroke-width="7" stroke-linecap="round"/>
-              <g transform="translate(126 48) rotate(-12)">
-                <rect width="85" height="122" rx="13" fill="#f7f0df" stroke="#173b2d" stroke-width="7"/>
-                <path d="M18 31h50M18 53h50M18 75h36" stroke="#173b2d" stroke-width="7" stroke-linecap="round"/>
-              </g>
-              <g transform="translate(292 44) rotate(10)">
-                <rect x="0" y="0" width="70" height="122" rx="20" fill="#6a9e84" stroke="#173b2d" stroke-width="7"/>
-                <path d="M18 22h34M35 22v73" stroke="#d8eadf" stroke-width="7" stroke-linecap="round"/>
-              </g>
-              <g transform="translate(210 49)">
-                <path d="M0 72 28 0l28 72" fill="#f4b942" stroke="#173b2d" stroke-width="7" stroke-linejoin="round"/>
-                <path d="M14 53h28" stroke="#173b2d" stroke-width="6"/>
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="topbar" id="checklist">
-      <div class="progress-wrap">
-        <div class="progress-meta">
-          <span>Собрано</span>
-          <strong id="progressText">0 из 33</strong>
-        </div>
-        <div class="progress-track" aria-label="Прогресс сборов">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-      </div>
-      <div class="quick-actions">
-        <button class="btn btn-soft phrase-trigger" data-kind="forgot" type="button">Что я забыл?</button>
-        <button class="btn btn-soft phrase-trigger" data-kind="socks" type="button">Проверить носки</button>
-        <button class="btn btn-dark" id="randomCheckBtn" type="button">Случайная проверка</button>
+  <header class="hero">
+    <div class="nav">
+      <div class="wrap nav-inner">
+        <div class="brand"><span class="brand-mark">Р</span><span>Рассказань — чек-лист</span></div>
+        <span class="nav-note">Проверь сумку до того, как сумка проверит тебя</span>
       </div>
     </div>
 
-    <main>
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#f6d79a">❤️</div>
-          <div>
-            <h2>Сердце, Слово и самое главное</h2>
-            <p class="section-sub">То, без чего даже идеальная сумка не спасёт.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="heart" type="button">Проверить настрой</button>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">29 июля — 2 августа • сборы начались</span>
+        <h1>Ты точно всё взял?</h1>
+        <p class="lead">Собраться в Рассказань — это почти отдельный вид искусства.</p>
+        <p class="hero-sub">Здесь 33 пункта, нормальные фотографии вещей, сохранение прогресса и кнопки, которые иногда говорят неприятную правду о твоей сумке.</p>
+        <div class="actions">
+          <button class="btn primary" id="startBtn">Начать собираться</button>
+          <button class="btn ghost phrase-trigger" data-kind="panic">Выезд завтра. Что делать?</button>
         </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="1"><span><span class="item-title"><span class="item-num">01</span>Сердце готовое</span><span class="item-note">Послужить, радоваться общению и наслаждаться красотой Божьего творения :))</span></span></label>
-          <label class="check"><input type="checkbox" data-id="2"><span><span class="item-title"><span class="item-num">02</span>Библия, книга, блокнот и письменные принадлежности</span><span class="item-note">Ручку и карандаш лучше взять по два — для ближнего.</span></span></label>
+        <div class="hero-facts">
+          <span class="fact">✓ Галочки сохраняются</span>
+          <span class="fact">✓ Работает на телефоне</span>
+          <span class="fact">✓ Кружку всё равно проверь дважды</span>
         </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#cce4d7">📱</div>
-          <div>
-            <h2>Документы, деньги и техника</h2>
-            <p class="section-sub">Чтобы телефон жил, а вы не вспоминали паспорт уже в дороге.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="battery" type="button">Узнать судьбу зарядки</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="3"><span><span class="item-title"><span class="item-num">03</span>Паспорт и медицинский полис</span><span class="item-note">Подойдут копии или фотографии документов.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="4"><span><span class="item-title"><span class="item-num">04</span>Телефон, зарядка и маленькая сумочка</span><span class="item-note">Чтобы телефон не путешествовал отдельно от хозяина.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="5"><span><span class="item-title"><span class="item-num">05</span>Powerbank и подходящий шнур</span><span class="item-note">Powerbank без шнура — просто тяжёлый сувенир.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="6"><span><span class="item-title"><span class="item-num">06</span>Банковская карта и наличные</span><span class="item-note">Пусть будут оба варианта.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="29"><span><span class="item-title"><span class="item-num">29</span>Согласие родителей и доверенность</span><span class="item-note">Для участников младше 18 лет.</span></span></label>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#f1c9c7">🩹</div>
-          <div>
-            <h2>Аптечка и защита</h2>
-            <p class="section-sub">Лучше привезти и не использовать, чем наоборот.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="mosquito" type="button">Спросить комара</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="7"><span><span class="item-title"><span class="item-num">07</span>Личные медикаменты</span><span class="item-note">Смекта, средства для желудка, носа и горла. <span class="urgent">Обязательно препараты от хронических заболеваний.</span></span></span></label>
-          <label class="check"><input type="checkbox" data-id="21"><span><span class="item-title"><span class="item-num">21</span>Головной убор</span><span class="item-note">Солнечный удар — совсем не развлечение.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="22"><span><span class="item-title"><span class="item-num">22</span>Крем от солнца</span><span class="item-note">Особенно для тех, кто быстро поджаривается.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="23"><span><span class="item-title"><span class="item-num">23</span>Крем после загара</span><span class="item-note">Кому нужен — тот поймёт.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="27"><span><span class="item-title"><span class="item-num">27</span>Средство от комаров</span><span class="item-note">Не становитесь главным блюдом вечера.</span></span></label>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#d4e4f1">🔦</div>
-          <div>
-            <h2>Свет и свободное время</h2>
-            <p class="section-sub">Чтобы вечером было видно настольную игру, а не только звёзды.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="flashlight" type="button">Проверить фонарик</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="8"><span><span class="item-title"><span class="item-num">08</span>Отдельный фонарик</span><span class="item-note">Телефон за это скажет спасибо и дольше проживёт.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="9"><span><span class="item-title"><span class="item-num">09</span>Досуг</span><span class="item-note">Настольные игры, материалы для рисования и другое.</span></span></label>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#d9e9ce">👕</div>
-          <div>
-            <h2>Одежда и обувь</h2>
-            <p class="section-sub">Носки считаются не по вдохновению, а по дням.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="weather" type="button">Вызвать погоду на разговор</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="10"><span><span class="item-title"><span class="item-num">10</span>Спортивная обувь</span><span class="item-note">Для футбола, волейбола и других подвигов.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="11"><span><span class="item-title"><span class="item-num">11</span>Шлёпки</span><span class="item-note">Для пляжа, душа и дождливой погоды.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="12"><span><span class="item-title"><span class="item-num">12</span>Посмотреть прогноз погоды</span><span class="item-note">Да, это полноценный пункт чек-листа!</span></span></label>
-          <label class="check"><input type="checkbox" data-id="13"><span><span class="item-title"><span class="item-num">13</span>Дождевик и зонтик</span><span class="item-note">Полезнее, чем философски мокнуть.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="14"><span><span class="item-title"><span class="item-num">14</span>Одежда в дорогу туда и обратно</span></span></label>
-          <label class="check"><input type="checkbox" data-id="15"><span><span class="item-title"><span class="item-num">15</span>Одежда на каждый день</span></span></label>
-          <label class="check"><input type="checkbox" data-id="16"><span><span class="item-title"><span class="item-num">16</span>Тёплая одежда на вечер</span><span class="item-note">Джинсы, толстовка с капюшоном, ветровка и пара носков на день.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="17"><span><span class="item-title"><span class="item-num">17</span>Тёплая одежда для сна</span><span class="item-note">Удобная одежда, тёплые носки и при необходимости шапка.</span></span></label>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#f7d5ae">🥔</div>
-          <div>
-            <h2>Гигиена, вода и легендарная картошка</h2>
-            <p class="section-sub">Кружка — обязательна. Овощечистка — почти почётная должность.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="mug" type="button">Проверить кружку</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="18"><span><span class="item-title"><span class="item-num">18</span>Овощечистка</span><span class="item-note">Картошка — это вкусно!</span></span></label>
-          <label class="check"><input type="checkbox" data-id="19"><span><span class="item-title"><span class="item-num">19</span>Полотенце для душа</span></span></label>
-          <label class="check"><input type="checkbox" data-id="20"><span><span class="item-title"><span class="item-num">20</span>Полотенце для пляжа</span></span></label>
-          <label class="check"><input type="checkbox" data-id="24"><span><span class="item-title"><span class="item-num">24</span>Зубная щётка, паста и зубная нить</span></span></label>
-          <label class="check"><input type="checkbox" data-id="25"><span><span class="item-title"><span class="item-num">25</span>Шампунь и гель для душа</span></span></label>
-          <label class="check"><input type="checkbox" data-id="26"><span><span class="item-title"><span class="item-num">26</span>Стиральный порошок</span><span class="item-note">Если планируете стирать.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="28"><span><span class="item-title"><span class="item-num">28</span>Чашка или термокружка и бутылочка для воды</span><span class="item-note">Чай в ладошках — неудобно.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="30"><span><span class="item-title"><span class="item-num">30</span>Беруши и маска для сна</span><span class="item-note">Для тех, кому мешают шум и слишком активный рассвет.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="31"><span><span class="item-title"><span class="item-num">31</span>Влажные салфетки</span><span class="item-note">Лучше большая пачка. «Душ из салфеток» — только крайняя мера :)</span></span></label>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div class="section-icon" style="--tone:#e1d3f0">⛺</div>
-          <div>
-            <h2>Палаточный финал</h2>
-            <p class="section-sub">Осталось взять дом и безопасность для воды.</p>
-          </div>
-          <button class="btn btn-soft phrase-trigger" data-kind="tent" type="button">Спросить палатку</button>
-        </div>
-        <div class="items">
-          <label class="check"><input type="checkbox" data-id="32"><span><span class="item-title"><span class="item-num">32</span>Палатка</span><span class="item-note">Проверьте комплектность заранее, а не под звёздами.</span></span></label>
-          <label class="check"><input type="checkbox" data-id="33"><span><span class="item-title"><span class="item-num">33</span>Нарукавники для детей</span><span class="item-note urgent">Все дети купаются только в нарукавниках.</span></span></label>
-        </div>
-      </section>
-
-      <div class="fun-zone">
-        <section class="fun-card dark">
-          <h2>Кнопки великой проверки</h2>
-          <p>Нажимай смело. Иногда сайт знает о твоей сумке больше, чем ты.</p>
-          <div class="fun-buttons">
-            <button class="btn btn-primary phrase-trigger" data-kind="ready" type="button">Мне уже можно ехать?</button>
-            <button class="btn btn-light phrase-trigger" data-kind="forgot" type="button">Я точно ничего не забыл?</button>
-            <button class="btn btn-light phrase-trigger" data-kind="potato" type="button">Проверить картошку</button>
-            <button class="btn btn-light phrase-trigger" data-kind="mystery" type="button">Таинственная кнопка</button>
-          </div>
-          <div class="phrase-box" id="phraseBox" aria-live="polite">Нажми любую кнопку — здесь появится важная, почти научная фраза.</div>
-        </section>
-
-        <section class="fun-card paper">
-          <h2>Сигналы неправильной сборки</h2>
-          <p>Обнаружил хотя бы один — возвращайся к чек-листу.</p>
-          <div class="mini-list">
-            <div class="mini">🧥 Взял три толстовки, но забыл зубную щётку.</div>
-            <div class="mini">🔌 Взял powerbank, но не взял шнур.</div>
-            <div class="mini">☕ Взял чай, но забыл кружку.</div>
-            <div class="mini">🧦 Сказал: «Носки там как-нибудь найдутся».</div>
-          </div>
-        </section>
       </div>
-    </main>
+    </div>
+  </header>
 
-    <footer class="footer">
-      <h2 id="finalTitle">До полной готовности ещё 33 пункта</h2>
-      <p id="finalText">Ставь галочки — прогресс сохранится на этом устройстве.</p>
-      <button class="btn btn-primary" id="resetBtn" type="button">Сбросить все галочки</button>
-    </footer>
+  <section class="object-strip">
+    <div class="wrap object-grid">
+      <article class="photo-card big" style="background-image:url('assets/gear-tech.jpg')">
+        <span class="photo-tag">реальные сборы</span>
+        <div class="photo-copy"><strong>Когда хотел взять только необходимое</strong><span>…а необходимого оказалось примерно всё.</span></div>
+      </article>
+      <article class="photo-card" style="background-image:url('assets/gear-trip.jpg')">
+        <div class="photo-copy"><strong>Сумки едут отдельно</strong><span>Главное — не оставить хозяина.</span></div>
+      </article>
+      <article class="photo-card" style="background-image:url('assets/gear-sleep.jpg')">
+        <div class="photo-copy"><strong>Тепло тоже берём</strong><span>Ночью героизм не заменяет спальник.</span></div>
+      </article>
+      <article class="photo-card" style="background-image:url('assets/gear-rain.jpg')">
+        <div class="photo-copy"><strong>Погода любит сюрпризы</strong><span>Дождевик — это спокойствие в пакете.</span></div>
+      </article>
+      <article class="photo-card" style="background-image:url('assets/gear-warm.jpg')">
+        <div class="photo-copy"><strong>Вечером станет прохладнее</strong><span>Толстовка не занимает место. Она спасает настроение.</span></div>
+      </article>
+    </div>
+  </section>
+
+  <div class="wrap sticky" id="checklist">
+    <div class="toolbar">
+      <div>
+        <div class="progress-top"><span>Готовность сумки</span><strong id="progressText">0 из 33</strong></div>
+        <div class="track"><div class="bar" id="progressBar"></div></div>
+      </div>
+      <div class="tools">
+        <button class="btn soft small phrase-trigger" data-kind="forgot">Что я забыл?</button>
+        <button class="btn soft small phrase-trigger" data-kind="socks">Проверить носки</button>
+        <button class="btn paper small" id="randomBtn">Случайная проверка</button>
+      </div>
+    </div>
   </div>
+
+  <main class="wrap">
+    <section class="intro">
+      <div class="intro-card">
+        <h2>Сначала важное</h2>
+        <p>Это не просто список вещей. Это защита от легендарного сценария: приехать с тремя толстовками, но без зубной щётки, кружки и зарядки.</p>
+        <div class="quote">Положил вещь в сумку — только тогда ставь галочку.</div>
+      </div>
+      <div class="intro-card paper">
+        <h2>Режим паники</h2>
+        <p>Для тех, кто начал собираться тогда, когда остальные уже садятся в машину.</p>
+        <div class="panic">
+          <button class="btn primary phrase-trigger" data-kind="panic">Я собираюсь за 15 минут</button>
+          <button class="btn soft phrase-trigger" data-kind="mug">Где моя кружка?</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="filters">
+      <h2>Чек-лист</h2>
+      <div class="filter-buttons">
+        <button class="btn soft small filter active" data-filter="all">Все пункты</button>
+        <button class="btn soft small filter" data-filter="open">Не собрано</button>
+        <button class="btn soft small filter" data-filter="done">Уже в сумке</button>
+      </div>
+    </div>
+
+    <div class="sections" id="sections"></div>
+
+    <section class="fun">
+      <div class="fun-card dark">
+        <h2>Кнопки великой проверки</h2>
+        <p>Нажимай. Иногда сайт знает о твоей подготовке больше, чем хотелось бы.</p>
+        <div class="actions">
+          <button class="btn primary phrase-trigger" data-kind="ready">Мне уже можно ехать?</button>
+          <button class="btn ghost phrase-trigger" data-kind="forgot">Точно ничего не забыл?</button>
+          <button class="btn ghost phrase-trigger" data-kind="potato">Проверить картошку</button>
+          <button class="btn ghost phrase-trigger" data-kind="mystery">Таинственная кнопка</button>
+        </div>
+        <div class="phrase" id="phraseBox">Нажми любую кнопку — здесь появится почти научный вывод.</div>
+      </div>
+
+      <div class="fun-card paper">
+        <h2>Тревожные сигналы</h2>
+        <p>Если узнал себя — возвращайся к списку.</p>
+        <div class="warning-list">
+          <div>Взял три худи, но забыл зубную щётку.</div>
+          <div>Взял powerbank, но шнур остался дома.</div>
+          <div>Сказал: «Кружку кто-нибудь даст».</div>
+          <div>Посмотрел прогноз за прошлую неделю.</div>
+          <div>Палатка есть, но колышки живут отдельной жизнью.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <h2 id="finalTitle">До полной готовности ещё 33 пункта</h2>
+    <p id="finalText">Ставь галочки — сайт всё запомнит на этом устройстве.</p>
+    <div class="actions" style="justify-content:center">
+      <button class="btn primary phrase-trigger" data-kind="ready">Контрольная проверка</button>
+      <button class="btn ghost" id="resetBtn">Сбросить галочки</button>
+    </div>
+  </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
 
   <script>
-    const checks = [...document.querySelectorAll('.check input')];
+    const data = [
+      {
+        title:'Сердце, Слово и самое главное',
+        subtitle:'То, без чего даже идеально собранная сумка не спасёт.',
+        image:'assets/gear-sunset.jpg',
+        action:'heart',
+        items:[
+          ['01','Сердце готовое','Послужить, радоваться общению и наслаждаться красотой Божьего творения :))'],
+          ['02','Библия, богословская книга, блокнот, ручка и карандаш','Ручку и карандаш лучше взять по два — для ближнего.']
+        ]
+      },
+      {
+        title:'Документы, деньги и техника',
+        subtitle:'Чтобы телефон жил, а паспорт не вспоминался уже в дороге.',
+        image:'assets/gear-tech.jpg',
+        action:'battery',
+        items:[
+          ['03','Паспорт и медицинский полис','Можно взять копии или фотографии документов.'],
+          ['04','Телефон, зарядка и маленькая сумочка','Чтобы телефон не путешествовал отдельно от хозяина.'],
+          ['05','Powerbank и подходящий шнур','Powerbank без шнура — просто тяжёлый сувенир.'],
+          ['06','Банковская карта и наличные','Пусть будут оба варианта.'],
+          ['29','Согласие родителей и доверенность','Для участников младше 18 лет.']
+        ]
+      },
+      {
+        title:'Аптечка и защита',
+        subtitle:'Лучше взять и не использовать, чем внезапно искать на месте.',
+        image:'assets/gear-warm.jpg',
+        action:'mosquito',
+        items:[
+          ['07','Личные медикаменты','Смекта, средства для желудка, носа и горла. Обязательно препараты от хронических заболеваний.','urgent'],
+          ['21','Головной убор','Солнечный удар — совсем не развлечение.'],
+          ['22','Крем от солнца','Особенно для тех, кто быстро поджаривается.'],
+          ['23','Крем после загара','Кому нужен — тот поймёт.'],
+          ['27','Средство от комаров','Не становитесь главным блюдом вечера.']
+        ]
+      },
+      {
+        title:'Свет и свободное время',
+        subtitle:'Чтобы вечером было видно настольную игру, а не только звёзды.',
+        image:'assets/gear-tech.jpg',
+        action:'flashlight',
+        items:[
+          ['08','Отдельный фонарик','Телефон за это скажет спасибо и дольше проживёт.'],
+          ['09','Досуг','Настольные игры, материалы для рисования и другое.']
+        ]
+      },
+      {
+        title:'Одежда и обувь',
+        subtitle:'Носки считаются не по вдохновению, а по дням.',
+        image:'assets/gear-trip.jpg',
+        action:'weather',
+        items:[
+          ['10','Спортивная обувь','Для футбола, волейбола и других подвигов.'],
+          ['11','Шлёпки','Для пляжа, душа и на случай дождя.'],
+          ['12','Посмотреть прогноз погоды','Да, это полноценный пункт чек-листа.'],
+          ['13','Дождевик и зонтик','Полезнее, чем философски мокнуть.'],
+          ['14','Одежда в дорогу туда и обратно',''],
+          ['15','Одежда на каждый день',''],
+          ['16','Тёплая одежда на вечер','Джинсы, толстовка с капюшоном, ветровка и пара носков на день.'],
+          ['17','Тёплая одежда для сна','Удобная одежда, тёплые носки и при необходимости шапка.']
+        ]
+      },
+      {
+        title:'Гигиена, вода и легендарная картошка',
+        subtitle:'Кружка обязательна. Овощечистка — почти почётная должность.',
+        image:'assets/gear-sleep.jpg',
+        action:'mug',
+        items:[
+          ['18','Овощечистка','Картошка — это вкусно!'],
+          ['19','Полотенце для душа',''],
+          ['20','Полотенце для пляжа',''],
+          ['24','Зубная щётка, паста и зубная нить',''],
+          ['25','Шампунь и гель для душа',''],
+          ['26','Стиральный порошок','Если планируете стирать.'],
+          ['28','Чашка или термокружка и бутылочка для воды','Чай в ладошках — неудобно.'],
+          ['30','Беруши и маска для сна','Для тех, кому мешают шум и слишком активный рассвет.'],
+          ['31','Влажные салфетки','Большая пачка. Душ из салфеток — только крайняя мера.']
+        ]
+      },
+      {
+        title:'Палаточный финал',
+        subtitle:'Осталось взять дом и безопасность для воды.',
+        image:'assets/gear-rain.jpg',
+        action:'tent',
+        items:[
+          ['32','Палатка','Проверь комплектность заранее, а не после заката.'],
+          ['33','Нарукавники для детей','Все дети купаются только в нарукавниках.','urgent']
+        ]
+      }
+    ];
+
+    const sections = document.getElementById('sections');
+    sections.innerHTML = data.map(section => `
+      <section class="section">
+        <div class="section-cover" style="background-image:url('${section.image}')">
+          <button class="btn paper small section-action phrase-trigger" data-kind="${section.action}">Проверить</button>
+          <div class="section-copy">
+            <h2>${section.title}</h2>
+            <p>${section.subtitle}</p>
+          </div>
+        </div>
+        <div class="grid">
+          ${section.items.map(item => `
+            <label class="item ${item[3] || ''}">
+              <input type="checkbox" data-id="${item[0]}">
+              <span>
+                <span class="item-title"><span class="item-num">${item[0]}</span>${item[1]}</span>
+                ${item[2] ? `<span class="item-note">${item[2]}</span>` : ''}
+              </span>
+            </label>
+          `).join('')}
+        </div>
+      </section>
+    `).join('');
+
+    const checks = [...document.querySelectorAll('.item input')];
     const progressText = document.getElementById('progressText');
     const progressBar = document.getElementById('progressBar');
     const finalTitle = document.getElementById('finalTitle');
@@ -731,86 +737,92 @@
     const phraseBox = document.getElementById('phraseBox');
     const toast = document.getElementById('toast');
     const confetti = document.getElementById('confetti');
-    const STORAGE_KEY = 'rasskazan-checklist-v1';
+    const STORAGE_KEY = 'rasskazan-checklist-fun-v1';
 
     const phrases = {
-      ready: [
+      ready:[
         'Почти. Сначала честно ответь: кружка точно в сумке?',
-        'Если документы, носки и хорошее настроение на месте — уже очень похоже на готовность.',
         'Морально — да. Физически — проверь палатку и зарядку.',
-        'Можно ехать, но сумка просит ещё одну контрольную проверку.'
+        'Если документы, носки и хорошее настроение на месте — уже серьёзно.',
+        'Сумка выглядит уверенно. Но паспорт всё ещё подозрительно молчит.'
       ],
-      forgot: [
-        'Скорее всего то, о чём ты сказал: «Это я положу потом».',
-        'Статистика утверждает: чаще всего забывают зарядку, кружку или здравый смысл.',
-        'Загляни в отдел документов. Паспорт любит оставаться дома.',
-        'Проверь полотенце. Оно умеет становиться невидимым перед поездкой.'
+      panic:[
+        'Спокойно. Документы, лекарства, телефон, зарядка, кружка, одежда, палатка. Остальное — по списку.',
+        'Не бегай кругами. Открой сумку и начинай с пункта №1.',
+        'Пятнадцать минут — достаточно, чтобы собрать главное и забыть полотенце. Поэтому ставь галочки.',
+        'Режим паники включён. Первым делом перестань говорить: «Успею потом».'
       ],
-      socks: [
-        'Носки обнаружены? Тогда цивилизация спасена.',
+      forgot:[
+        'Скорее всего то, о чём ты сказал: «Это положу потом».',
+        'Проверь документы. Паспорт любит оставаться дома.',
+        'Проверь полотенце. Оно умеет становиться невидимым перед поездкой.',
+        'Статистика сумки подозревает зарядку, кружку или дождевик.'
+      ],
+      socks:[
         'Пара на день — это не роскошь, а мудрое планирование.',
         'Один носок без второго — не команда. Проверь комплект.',
-        'Носки одобряют твою подготовку, но просят взять запас.'
+        'Носки одобряют подготовку, но просят взять запас.',
+        'Сайт не видит твою сумку, но почти уверен: носков мало.'
       ],
-      heart: [
-        'Сердце готово служить — главный пункт уже почти собран.',
+      heart:[
+        'Главный пункт: быть готовым служить, помогать и радоваться.',
         'Хорошее настроение найдено. Осталось не забыть делиться им.',
-        'Настрой правильный: радоваться, помогать и не спорить из-за последней печеньки.'
+        'Настрой правильный: любить ближнего даже тогда, когда он взял твою ручку.'
       ],
-      battery: [
-        'Зарядка есть? Теперь убедись, что она именно от твоего телефона.',
-        'Powerbank без шнура грустит и ничего не заряжает.',
-        'Телефон готов к путешествию. А паспорт?'
+      battery:[
+        'Powerbank без шнура ничего не заряжает. Наука подтверждает.',
+        'Убедись, что зарядка именно от твоего телефона.',
+        'Телефон готов. Теперь проверь документы — они не заряжаются, но тоже нужны.'
       ],
-      mosquito: [
-        'Комар сообщил: без средства от насекомых он ждёт тебя особенно сильно.',
-        'Местные комары уже составляют меню. Не входи в него.',
-        'Средство от комаров — маленький флакон большого спокойствия.'
+      mosquito:[
+        'Комары уже составляют меню. Не входи в него.',
+        'Средство от комаров — маленький флакон большого спокойствия.',
+        'Местные комары любят новых людей. Не давай им повода.'
       ],
-      flashlight: [
-        'Фонарик светит. Значит, ночью у палатки есть шанс быть найденной.',
+      flashlight:[
         'Телефон просит не работать фонариком всю ночь.',
-        'Проверка фонарика пройдена, если батарейки тоже едут.'
+        'Фонарик есть? Теперь проверь батарейки.',
+        'Без фонарика палатка ночью превращается в квест.'
       ],
-      weather: [
-        'Прогноз погоды не управляет дождём, но управляет твоим дождевиком.',
-        'Погода сказала: «Возьми и футболку, и толстовку — разберёмся на месте».',
-        'Зонт не гарантирует солнце, но сильно повышает уверенность.'
+      weather:[
+        'Погода советует взять и футболку, и толстовку. Она сама ещё не решила.',
+        'Дождевик лучше философского мокания.',
+        'Прогноз — не обещание, а аргумент в пользу ветровки.'
       ],
-      mug: [
+      mug:[
+        'Без кружки чай превращается в теоретическое понятие.',
         'Кружка на месте — чайная безопасность обеспечена.',
-        'Термокружка официально назначена хранителем вечернего чая.',
-        'Без кружки чай превращается в теоретическое понятие.'
+        'Чужая кружка всегда занята. Возьми свою.'
       ],
-      tent: [
-        'Палатка просит проверить колышки до приезда, а не после заката.',
-        'Палатка есть. Теперь убедись, что она не состоит только из чехла.',
-        'Дом взят. Осталось не забыть, кто умеет его ставить.'
+      tent:[
+        'Палатка просит проверить колышки до заката.',
+        'Убедись, что палатка — не только красивый чехол.',
+        'Дом взят. Теперь найди человека, который помнит, как его ставить.'
       ],
-      potato: [
+      potato:[
         'Картошка одобряет наличие овощечистки.',
         'Овощечистка — маленький инструмент большой кухни.',
-        'Если картошка вкусная, значит, кто-то всё-таки взял овощечистку.'
+        'Если картошка вкусная, значит, кто-то всё-таки не забыл овощечистку.'
       ],
-      mystery: [
+      mystery:[
         'Таинственная кнопка считает, что тебе нужно проверить документы.',
         'Секрет раскрыт: возьми ещё одну ручку для ближнего.',
-        'Мудрость гласит: положил вещь в сумку — поставь галочку.',
-        'Никакой магии. Просто проверь зарядку ещё раз.'
+        'Никакой магии. Просто проверь зарядку ещё раз.',
+        'Мудрость гласит: положил вещь в сумку — поставь галочку.'
       ]
     };
 
-    function pick(list){ return list[Math.floor(Math.random() * list.length)]; }
+    function randomFrom(list){ return list[Math.floor(Math.random()*list.length)] }
 
     function showPhrase(kind){
+      const done = checks.filter(c => c.checked).length;
       let text;
-      if(kind === 'ready'){
-        const done = checks.filter(c => c.checked).length;
-        if(done === checks.length) text = 'Да! Всё собрано. Даже сайт больше не знает, к чему придраться.';
-        else if(done >= 27) text = `Почти готов! Осталось ${checks.length - done}. Сумка уже начинает гордиться тобой.`;
-        else text = pick(phrases.ready);
-      } else {
-        text = pick(phrases[kind] || phrases.mystery);
+      if(kind === 'ready' && done === checks.length){
+        text = 'Да. Всё собрано. Даже сайт больше не знает, к чему придраться.';
+      }else if(kind === 'ready' && done >= 27){
+        text = `Почти готов! Осталось ${checks.length-done}. Сумка уже начинает уважать тебя.`;
+      }else{
+        text = randomFrom(phrases[kind] || phrases.mystery);
       }
       phraseBox.textContent = text;
       showToast(text);
@@ -820,12 +832,12 @@
       toast.textContent = text;
       toast.classList.add('show');
       clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+      window.toastTimer = setTimeout(()=>toast.classList.remove('show'),3000);
     }
 
     function save(){
-      const state = Object.fromEntries(checks.map(c => [c.dataset.id, c.checked]));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      const state = Object.fromEntries(checks.map(c => [c.dataset.id,c.checked]));
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
     }
 
     function load(){
@@ -836,70 +848,95 @@
       updateProgress(false);
     }
 
-    function updateProgress(celebrate = true){
-      const done = checks.filter(c => c.checked).length;
-      const total = checks.length;
-      const left = total - done;
-      const pct = Math.round(done / total * 100);
-      progressText.textContent = `${done} из ${total}`;
-      progressBar.style.width = `${pct}%`;
+    function wordEnding(n){
+      if(n%10===1 && n%100!==11) return 'пункт';
+      if([2,3,4].includes(n%10) && ![12,13,14].includes(n%100)) return 'пункта';
+      return 'пунктов';
+    }
 
-      if(done === total){
-        finalTitle.textContent = 'Готово! Можно ехать в Рассказань 🎉';
+    function updateProgress(celebrate=true){
+      const done = checks.filter(c => c.checked).length;
+      const left = checks.length-done;
+      const percent = Math.round(done/checks.length*100);
+      progressText.textContent = `${done} из ${checks.length}`;
+      progressBar.style.width = `${percent}%`;
+
+      if(done === checks.length){
+        finalTitle.textContent = 'Готово. Можно ехать в Рассказань';
         finalText.textContent = 'Сумка собрана, кружка найдена, носки посчитаны.';
         if(celebrate) launchConfetti();
-      }else if(done >= 25){
+      }else if(done >= 27){
         finalTitle.textContent = `Почти готово — осталось ${left}`;
-        finalText.textContent = 'Финишная прямая. Не расслабляйся рядом с разделом документов.';
+        finalText.textContent = 'Финишная прямая. Документы лучше проверить ещё раз.';
       }else{
-        finalTitle.textContent = `До полной готовности ещё ${left}`;
-        finalText.textContent = 'Ставь галочки — прогресс сохранится на этом устройстве.';
+        finalTitle.textContent = `До полной готовности ещё ${left} ${wordEnding(left)}`;
+        finalText.textContent = 'Ставь галочки — сайт всё запомнит на этом устройстве.';
       }
+      applyFilter(document.querySelector('.filter.active')?.dataset.filter || 'all');
+    }
+
+    function applyFilter(filter){
+      document.querySelectorAll('.item').forEach(item => {
+        const checked = item.querySelector('input').checked;
+        item.classList.toggle('hidden',
+          (filter === 'open' && checked) ||
+          (filter === 'done' && !checked)
+        );
+      });
     }
 
     function launchConfetti(){
-      const colors = ['#f4b942','#e97c3d','#a8d8bd','#78b6d8','#ffffff'];
-      for(let i=0;i<70;i++){
-        const piece = document.createElement('i');
-        piece.style.left = Math.random()*100 + 'vw';
-        piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-        piece.style.setProperty('--drift', (Math.random()*220-110) + 'px');
-        piece.style.animationDelay = Math.random()*.5 + 's';
+      const colors=['#f2a63b','#e66e3b','#78a98a','#eee7dc'];
+      for(let i=0;i<72;i++){
+        const piece=document.createElement('i');
+        piece.style.left=Math.random()*100+'vw';
+        piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+        piece.style.setProperty('--drift',(Math.random()*240-120)+'px');
+        piece.style.animationDelay=Math.random()*.45+'s';
         confetti.appendChild(piece);
-        setTimeout(() => piece.remove(), 3000);
+        setTimeout(()=>piece.remove(),2900);
       }
     }
 
-    checks.forEach(c => c.addEventListener('change', () => {
+    checks.forEach(c => c.addEventListener('change',()=>{
       save();
       updateProgress();
     }));
 
-    document.querySelectorAll('.phrase-trigger').forEach(btn => {
-      btn.addEventListener('click', () => showPhrase(btn.dataset.kind));
+    document.addEventListener('click',e=>{
+      const phraseButton=e.target.closest('.phrase-trigger');
+      if(phraseButton) showPhrase(phraseButton.dataset.kind);
+
+      const filterButton=e.target.closest('.filter');
+      if(filterButton){
+        document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+        filterButton.classList.add('active');
+        applyFilter(filterButton.dataset.filter);
+      }
     });
 
-    document.getElementById('startBtn').addEventListener('click', () => {
+    document.getElementById('startBtn').addEventListener('click',()=>{
       document.getElementById('checklist').scrollIntoView({behavior:'smooth',block:'start'});
-      showToast('Начинаем! Первым делом проверь сердце, документы и кружку.');
+      showToast('Начинаем. Сначала сердце, документы и кружка.');
     });
 
-    document.getElementById('randomCheckBtn').addEventListener('click', () => {
-      const unchecked = checks.filter(c => !c.checked);
+    document.getElementById('randomBtn').addEventListener('click',()=>{
+      const unchecked=checks.filter(c=>!c.checked);
       if(!unchecked.length){
-        showToast('Нечего проверять: все 33 пункта уже отмечены!');
+        showPhrase('ready');
         launchConfetti();
         return;
       }
-      const target = unchecked[Math.floor(Math.random()*unchecked.length)];
-      target.closest('.check').scrollIntoView({behavior:'smooth',block:'center'});
-      const title = target.closest('.check').querySelector('.item-title').innerText.replace(/\s+/g,' ').trim();
+      const target=randomFrom(unchecked);
+      const item=target.closest('.item');
+      item.scrollIntoView({behavior:'smooth',block:'center'});
+      const title=item.querySelector('.item-title').innerText.replace(/\s+/g,' ').trim();
       showToast(`Случайная проверка выбрала: ${title}`);
     });
 
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      if(confirm('Точно снять все галочки и начать сборы заново?')){
-        checks.forEach(c => c.checked = false);
+    document.getElementById('resetBtn').addEventListener('click',()=>{
+      if(confirm('Снять все галочки и начать сборы заново?')){
+        checks.forEach(c=>c.checked=false);
         save();
         updateProgress(false);
         showToast('Галочки сброшены. Сумка снова смотрит на тебя с надеждой.');
