@@ -124,6 +124,30 @@
     .btn-dark{background:var(--forest);color:white}
     .btn-soft{background:#eee6d8;color:#233128;border:1px solid #ddd2c0}
 
+    .album-strip{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin:16px 0 2px;
+    }
+    .album-shot{
+      min-height:176px;
+      border-radius:24px;
+      overflow:hidden;
+      position:relative;
+      background:var(--shot) center/cover no-repeat;
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 16px 42px rgba(0,0,0,.18);
+    }
+    .album-shot::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,transparent 48%,rgba(5,14,10,.28));
+      pointer-events:none;
+    }
+    .album-shot:nth-child(1){grid-column:span 2}
+
     .topbar{display:flex;gap:16px;align-items:center;padding:28px 0 16px}
     .progress-wrap{
       flex:1;
@@ -205,12 +229,14 @@
 
     @media(max-width:980px){
       .hero{grid-template-columns:1fr}.hero-copy{padding:42px 30px}.hero-visual{min-height:430px}
+      .album-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.album-shot,.album-shot:nth-child(1){grid-column:auto;min-height:190px}
       .topbar{display:grid}.quick-actions{justify-content:flex-start}
       .section-layout,.section.reverse .section-layout{grid-template-columns:1fr}.section-photo,.section.reverse .section-photo{order:-1;min-height:220px}
       .fun-zone{grid-template-columns:1fr}
     }
     @media(max-width:680px){
       .page{width:min(100% - 16px,1180px);padding-top:8px}.hero{border-radius:24px}.hero-copy{padding:28px 18px}.hero-visual{min-height:330px}
+      .album-strip{gap:8px;margin-top:10px}.album-shot{min-height:135px;border-radius:18px}
       h1{font-size:clamp(3rem,17vw,5.2rem)}.hero-actions .btn{width:100%}      .quick-actions .btn{flex:1 1 calc(50% - 10px)}
       .section{border-radius:23px}.section-content{padding:17px}.section-photo{min-height:180px}.section-head{grid-template-columns:50px 1fr}.section-head .btn{grid-column:1/-1;width:100%}.section-icon{width:50px;height:50px;border-radius:15px;font-size:1.5rem}.items{grid-template-columns:1fr}.fun-card{padding:20px}
     }
@@ -232,8 +258,15 @@
       <div class="hero-visual"></div>
     </header>
 
+    <div class="album-strip" aria-label="Фотографии с прошлой Рассказани">
+      <div class="album-shot" style="--shot:url('assets/album-1.webp')"></div>
+      <div class="album-shot" style="--shot:url('assets/album-2.webp')"></div>
+      <div class="album-shot" style="--shot:url('assets/album-3.webp')"></div>
+      <div class="album-shot" style="--shot:url('assets/album-4.webp')"></div>
+    </div>
+
     <div class="topbar" id="checklist">
-      <div class="progress-wrap"><div class="progress-meta"><span>Собрано</span><strong id="progressText">0 из 33</strong></div><div class="progress-track"><div class="progress-bar" id="progressBar"></div></div></div>
+      <div class="progress-wrap"><div class="progress-meta"><span>Собрано</span><strong id="progressText">0 из 34</strong></div><div class="progress-track"><div class="progress-bar" id="progressBar"></div></div></div>
       <div class="quick-actions">
         <button class="btn btn-soft phrase-trigger" data-kind="forgot" type="button">Что я забыл?</button>
         <button class="btn btn-soft phrase-trigger" data-kind="socks" type="button">Проверить носки</button>
@@ -267,6 +300,7 @@
           <label class="check"><input type="checkbox" data-id="22"><span><span class="item-title"><span class="item-num">22</span>Крем от солнца</span><span class="item-note">Особенно для тех, кто быстро поджаривается.</span></span></label>
           <label class="check"><input type="checkbox" data-id="23"><span><span class="item-title"><span class="item-num">23</span>Крем после загара</span><span class="item-note">Кому нужен — тот поймёт.</span></span></label>
           <label class="check"><input type="checkbox" data-id="27"><span><span class="item-title"><span class="item-num">27</span>Средство от комаров</span><span class="item-note">Не становитесь главным блюдом вечера.</span></span></label>
+          <label class="check"><input type="checkbox" data-id="33"><span><span class="item-title"><span class="item-num">33</span>Нарукавники для детей</span><span class="item-note urgent">Все дети купаются только в нарукавниках.</span></span></label>
         </div></div><div class="section-photo"></div></div></section>
 
       <section class="section reverse" style="--photo:url('assets/light.webp')"><div class="section-layout"><div class="section-content">
@@ -302,8 +336,8 @@
         </div></div><div class="section-photo"></div></div></section>
 
       <section class="section" style="--photo:url('assets/tent.webp')"><div class="section-layout"><div class="section-content">
-        <div class="section-head"><div class="section-icon" style="--tone:#ddd3e8">⛺</div><div><h2>Палаточный финал</h2><p class="section-sub">Осталось взять дом и безопасность для воды.</p></div><button class="btn btn-soft phrase-trigger" data-kind="tent" type="button">Спросить палатку</button></div>
-        <div class="items"><label class="check"><input type="checkbox" data-id="32"><span><span class="item-title"><span class="item-num">32</span>Палатка</span><span class="item-note">Проверьте комплектность заранее, а не под звёздами.</span></span></label><label class="check"><input type="checkbox" data-id="33"><span><span class="item-title"><span class="item-num">33</span>Нарукавники для детей</span><span class="item-note urgent">Все дети купаются только в нарукавниках.</span></span></label></div>
+        <div class="section-head"><div class="section-icon" style="--tone:#ddd3e8">⛺</div><div><h2>Палаточный финал</h2><p class="section-sub">Осталось взять дом и тёплое место для сна.</p></div><button class="btn btn-soft phrase-trigger" data-kind="tent" type="button">Спросить палатку</button></div>
+        <div class="items"><label class="check"><input type="checkbox" data-id="32"><span><span class="item-title"><span class="item-num">32</span>Палатка</span><span class="item-note">Проверьте комплектность заранее, а не под звёздами.</span></span></label><label class="check"><input type="checkbox" data-id="34"><span><span class="item-title"><span class="item-num">34</span>Спальник</span><span class="item-note">Проверьте, что он чистый, тёплый и точно ваш.</span></span></label></div>
       </div><div class="section-photo"></div></div></section>
 
       <div class="fun-zone">
@@ -312,7 +346,7 @@
       </div>
     </main>
 
-    <footer class="footer"><h2 id="finalTitle">До полной готовности ещё 33 пункта</h2><p id="finalText">Ставь галочки — прогресс сохранится на этом устройстве.</p><button class="btn btn-primary" id="resetBtn" type="button">Сбросить все галочки</button></footer>
+    <footer class="footer"><h2 id="finalTitle">До полной готовности ещё 34 пункта</h2><p id="finalText">Ставь галочки — прогресс сохранится на этом устройстве.</p><button class="btn btn-primary" id="resetBtn" type="button">Сбросить все галочки</button></footer>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div><div class="confetti" id="confetti" aria-hidden="true"></div>
@@ -328,7 +362,7 @@
     function launchConfetti(){const colors=['#d4a855','#c96f42','#93b39b','#f4efe4'];for(let i=0;i<70;i++){const piece=document.createElement('i');piece.style.left=Math.random()*100+'vw';piece.style.background=colors[Math.floor(Math.random()*colors.length)];piece.style.setProperty('--drift',(Math.random()*220-110)+'px');piece.style.animationDelay=Math.random()*.5+'s';confetti.appendChild(piece);setTimeout(()=>piece.remove(),3000)}}
     checks.forEach(c=>c.addEventListener('change',()=>{save();updateProgress()}));document.querySelectorAll('.phrase-trigger').forEach(btn=>btn.addEventListener('click',()=>showPhrase(btn.dataset.kind)));
     document.getElementById('startBtn').addEventListener('click',()=>{document.getElementById('checklist').scrollIntoView({behavior:'smooth',block:'start'});showToast('Начинаем! Первым делом проверь сердце, документы и кружку.')});
-    document.getElementById('randomCheckBtn').addEventListener('click',()=>{const unchecked=checks.filter(c=>!c.checked);if(!unchecked.length){showToast('Нечего проверять: все 33 пункта уже отмечены!');launchConfetti();return}const target=unchecked[Math.floor(Math.random()*unchecked.length)];target.closest('.check').scrollIntoView({behavior:'smooth',block:'center'});const title=target.closest('.check').querySelector('.item-title').innerText.replace(/\s+/g,' ').trim();showToast(`Случайная проверка выбрала: ${title}`)});
+    document.getElementById('randomCheckBtn').addEventListener('click',()=>{const unchecked=checks.filter(c=>!c.checked);if(!unchecked.length){showToast('Нечего проверять: все 34 пункта уже отмечены!');launchConfetti();return}const target=unchecked[Math.floor(Math.random()*unchecked.length)];target.closest('.check').scrollIntoView({behavior:'smooth',block:'center'});const title=target.closest('.check').querySelector('.item-title').innerText.replace(/\s+/g,' ').trim();showToast(`Случайная проверка выбрала: ${title}`)});
     document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Точно снять все галочки и начать сборы заново?')){checks.forEach(c=>c.checked=false);save();updateProgress(false);showToast('Галочки сброшены. Сумка снова смотрит на тебя с надеждой.')}});load();
   </script>
 </body>
